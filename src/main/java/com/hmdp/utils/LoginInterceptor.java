@@ -1,39 +1,23 @@
 package com.hmdp.utils;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.hmdp.dto.UserDTO;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class LoginInterceptor implements HandlerInterceptor {
+
 
     //    前置拦截器
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//      1.获取session
-        HttpSession session = request.getSession();
-
-//      2.获取session 中的用户
-        Object user = session.getAttribute("user");
-//      3.判断用户是否存在
-        if (user == null) {
-//      4.不存在，拦截 401 未授权
+//判断是否需要进行拦截
+        if (UserHolder.getUser() == null) {
             response.setStatus(401);
             return false;
         }
-//      5.存在，将用户信息保存在ThreadLocal
-        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
-        UserHolder.saveUser(userDTO);
-//      6.放行
+//       有用户 放行
         return true;
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-//        移除用户
-        UserHolder.removeUser();
-    }
 }
