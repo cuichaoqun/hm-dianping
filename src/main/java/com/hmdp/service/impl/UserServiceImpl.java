@@ -92,7 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
           //  设置超时时间
         stringRedisTemplate.expire(loginUserKey, LOGIN_CODE_TTL, TimeUnit.MINUTES);
           //  7.存在返回token
-        return Result.ok();
+        return Result.ok(token);
     }
 
     private User createUserWithholdPhone(String phone) {
