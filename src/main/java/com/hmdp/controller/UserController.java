@@ -71,12 +71,12 @@ public class UserController {
         return Result.ok(user);
     }
 
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") Long userId) {
+    @GetMapping("/info")
+    public Result info(@RequestParam("id") Long id) {
         // 查询详情
-        UserInfo info = userInfoService.getById(userId);
+        UserInfo info = userInfoService.getById(id);
         if (info == null) {
-            // 没有详情，应该是第一次查看详情
+        // 没有详情，应该是第一次查看详情
             return Result.ok();
         }
         info.setCreateTime(null);

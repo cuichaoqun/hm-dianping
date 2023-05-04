@@ -46,12 +46,12 @@ public class Voucher implements Serializable {
     /**
      * 副标题
      */
-    private String subTitle;
+        private String subTitle;
 
     /**
      * 使用规则
      */
-    private String rules;
+        private String rules;
 
     /**
      * 支付金额
