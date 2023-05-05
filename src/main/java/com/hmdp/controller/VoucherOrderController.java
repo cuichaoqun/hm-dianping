@@ -24,8 +24,8 @@ public class VoucherOrderController {
     @Resource
     private IVoucherOrderService iVoucherOrderService;
 
-    @PostMapping("seckill")
-    public Result seckillVoucher(@RequestParam("id") Long id) {
+    @PostMapping("seckill/{id}")
+    public Result seckillVoucher(@PathVariable("id") Long id) {
 //        库存是否充足
         return iVoucherOrderService.seckillVoucher(id);
     }
